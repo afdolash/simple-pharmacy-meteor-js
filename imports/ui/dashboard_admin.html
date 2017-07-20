@@ -1,0 +1,156 @@
+<template name="dashboard_admin">
+	<nav>
+	<div class="nav-wrapper teal">
+    <a href="#" class="brand-logo center" style="font-size: 18pt;">P A K . M A N T R I</a>
+    <ul class="left hide-on-med-and-down">
+      <li><a href="/admin_medicine" class="waves-effect"><i class="material-icons">view_module</i></a></li>
+      <li><a href="/admin_order" class="waves-effect"><i class="material-icons">chat_bubble</i></a></li>
+    </ul>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="#" class="waves-effect logout"><i class="material-icons">input</i></a></li>
+    </ul>
+  </div>
+	</nav>
+</template>
+
+<!-- -------------------------------------------------------------------------------- ADMIN MEDICINE --------------------------------------------------------------------------- -->
+
+<template name="admin_medicine">
+  <div class="container">
+    <p class="teal-text center" style="font-size: 14pt; margin-top: 3em; font-size: 25pt"><b>D A F T A R . O B A T</b></p>
+
+    <div class="row" style="margin-top: 5em;">
+      {{#each medicine}}
+        {{> drug}}
+      {{/each}}
+
+      <div class="col s4">
+        <div class="card z-depth-2">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="./img/add.png">
+          </div>
+          
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">Tambah<i class="material-icons right">add</i></span>
+            <p>Menambah persediaan obat.</p>
+          </div>
+          
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Tambah<i class="material-icons right">close</i></span>
+            <form class="insert">
+              <div class="row">
+                <div class="col s12">
+                  <input placeholder="Nama obat" name="name" type="text" class="validate">
+                </div>
+                <div class="col s12">
+                  <textarea placeholder="Deskripsi kandungan" name="desc" type="text" class="materialize-textarea validate"></textarea>
+                </div>
+                <div class="col s6">
+                  <input placeholder="Stok" name="stock" type="number" class="validate" min="1">
+                </div>
+                <div class="col s6">
+                  <input placeholder="Harga" name="price" type="number" class="validate" min="1">
+                </div>
+                <input type="submit" class="waves-effect waves-light btn" value="TAMBAH" style="margin-top: 5%; width: 100%;">
+              </div>
+            </form>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+  </div>
+</template>
+
+<!-- -------------------------------------------------------------------------------- ADMIN ORDER --------------------------------------------------------------------------- -->
+
+<template name="admin_order">
+  <div class="container">
+    <p class="teal-text center" style="font-size: 14pt; margin-top: 3em; font-size: 25pt"><b>D A F T A R . P E S A N A N</b></p>
+
+    <div class="row" style="margin-top: 5em;">
+      {{#each orders}}
+        {{> order}}
+      {{/each}}
+    </div>
+
+  </div>
+</template>
+
+<!-- -------------------------------------------------------------------------------- ITEM DRUG --------------------------------------------------------------------------- -->
+
+<template name="drug">
+  <div class="col s4">
+    <div class="card z-depth-2">
+      <div class="card-image waves-effect waves-block waves-light">
+        <img class="activator" src="./img/med1.png">
+      </div>
+      
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4">{{name}}<a class="delete"><i class="material-icons right">delete</i></a></span>
+        <p>Rp {{price}} /strip</p>
+      </div>
+      
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">{{name}}<i class="material-icons right">close</i></span>
+        <form class="update">
+          <div class="row">
+            <div class="col s12">
+              <input placeholder="Nama obat" name="name" type="text" class="validate" value="{{name}}">
+            </div>
+            <div class="col s12">
+              <textarea placeholder="Deskripsi kandungan" name="desc" type="text" class="materialize-textarea validate">{{desc}}</textarea>
+            </div>
+            <div class="col s6">
+              <input placeholder="Stok" name="stock" type="number" class="validate" value="{{stock}}" min="1">
+            </div>
+            <div class="col s6">
+              <input placeholder="Harga" name="price" type="number" class="validate" value="{{price}}" min="1">
+            </div>
+            <input type="submit" class="waves-effect waves-light btn" value="PERBARUI" style="margin-top: 5%; width: 100%;">
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</template>
+
+<!-- -------------------------------------------------------------------------------- ITEM ORDER --------------------------------------------------------------------------- -->
+
+<template name="order">
+  <div class="col s4">
+    <div class="card sticky-action z-depth-2">
+      <div class="card-image waves-effect waves-block waves-light">
+        <img class="activator" src="./img/med2.png">
+      </div>
+      
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4">{{name_drug}}<a class="delete"><i class="material-icons right">delete</i></a></span>
+        <p>Rp {{total_price}}</p>
+      </div>
+      
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">{{name_drug}}<i class="material-icons right">close</i></span>
+        <p class="teal-text" style="font-size: 8pt">Nama obat</p>{{name_drug}}
+        <p class="teal-text" style="font-size: 8pt">Jumlah satuan</p>{{quantity}} strip
+        <p class="teal-text" style="font-size: 8pt">Total harga</p>Rp {{total_price}}
+        <p class="teal-text" style="font-size: 8pt">Email</p>{{email}}
+        <p class="teal-text" style="font-size: 8pt">Alamat apotek</p>{{address}}
+        <br><br>
+      <div class="chip right">
+        <img src="./img/people2.png" alt="Apotek">{{name_phar}}
+      </div>
+      <div class="chip right">
+        {{status}}
+      </div>
+      </div>
+
+      <div class="card-action">
+        <a href="#" class="send">KIRIM</a>
+      </div>
+
+    </div>
+  </div>
+</template>

@@ -1,0 +1,121 @@
+<template name="dashboard_user">
+	<nav>
+		<div class="nav-wrapper teal">
+	    <a href="#" class="brand-logo center" style="font-size: 18pt;">P A K . M A N T R I</a>
+	    <ul class="left hide-on-med-and-down">
+	      <li><a href="/user_medicine" class="waves-effect"><i class="material-icons">view_module</i></a></li>
+	      <li><a href="/user_orders" class="waves-effect"><i class="material-icons">chat_bubble</i></a></li>
+	    </ul>
+	    <ul class="right hide-on-med-and-down">
+	      <li><a href="#" class="waves-effect logout"><i class="material-icons">input</i></a></li>
+	    </ul>
+	  </div>
+	</nav>
+</template>
+
+<!-- -------------------------------------------------------------------------------- USER MEDICINE --------------------------------------------------------------------------- -->
+
+<template name="user_medicine">
+  <div class="container">
+    <p class="teal-text center" style="font-size: 14pt; margin-top: 3em; font-size: 25pt"><b>D A F T A R . O B A T</b></p>
+
+    <div class="row" style="margin-top: 5em;">
+      {{#each user_db_medicine}}
+        {{> user_drug}}
+      {{/each}}
+    </div>
+
+  </div>
+</template>
+
+<!-- -------------------------------------------------------------------------------- USER ORDER --------------------------------------------------------------------------- -->
+
+<template name="user_orders">
+  <div class="container">
+    <p class="teal-text center" style="font-size: 14pt; margin-top: 3em; font-size: 25pt"><b>P E S A N A N . K U</b></p>
+
+    <div class="row" style="margin-top: 5em;">
+      {{#each user_db_orders_onProgress}}
+        {{> user_order}}
+      {{/each}}
+      {{#each user_db_orders_onTheAir}}
+        {{> user_order}}
+      {{/each}}
+    </div>
+
+  </div>
+</template>
+
+<!-- -------------------------------------------------------------------------------- ITEM DRUG --------------------------------------------------------------------------- -->
+
+<template name="user_drug">
+  <div class="col s4">
+    <div class="card z-depth-2">
+      <div class="card-image waves-effect waves-block waves-light">
+        <img class="activator" src="./img/med1.png">
+      </div>
+      
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4">{{name}}</span>
+        <p>{{price}} /strip</p>
+      </div>
+      
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">{{name}}<i class="material-icons right">close</i></span>
+        <p class="teal-text" style="font-size: 8pt">Nama obat</p>{{name}}
+        <p class="teal-text" style="font-size: 8pt">Deskripsi kandungan</p>{{desc}}
+        <p class="teal-text" style="font-size: 8pt">Stok</p>{{stock}} strip
+        <p class="teal-text" style="font-size: 8pt">Harga</p>Rp {{price}} /strip
+        <p class="teal-text" style="font-size: 8pt">Pesan sekarang!</p>
+
+        <form class="order">
+          <div class="row">
+          	<input type="hidden" name="_id" value="{{_id}}">
+          	<input type="hidden" name="name_drug" value="{{name}}">
+          	<input type="hidden" name="price" value="{{price}}">
+          	<input type="hidden" name="stock" value="{{stock}}">
+
+            <div class="col s12">
+              <input placeholder="Jumlah" name="quantity" type="number" class="validate" min="1" max="{{stock}}" required>
+            </div>
+            <input type="submit" class="waves-effect waves-light btn" value="Pesan" style="margin-top: 5%; width: 100%;">
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</template>
+
+<!-- -------------------------------------------------------------------------------- ITEM ORDER --------------------------------------------------------------------------- -->
+
+<template name="user_order">
+  <div class="col s4">
+    <div class="card sticky-action z-depth-2">
+      <div class="card-image waves-effect waves-block waves-light">
+        <img class="activator" src="./img/med2.png">
+      </div>
+      
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4">{{name_drug}}</span>
+        <p>Rp {{total_price}}</p>
+      </div>
+      
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">{{name_drug}}<i class="material-icons right">close</i></span>
+        <p class="teal-text" style="font-size: 8pt">Nama obat</p>{{name_drug}}
+        <p class="teal-text" style="font-size: 8pt">Jumlah satuan</p>{{quantity}} strip
+        <p class="teal-text" style="font-size: 8pt">Total harga</p>Rp {{total_price}}
+        <br><br>
+    	<div class="chip right">
+    		{{status}}
+	  	</div>
+      </div>
+
+      <div class="card-action">
+      	<a href="#" class="cancel">BATALKAN</a>
+      </div>
+
+    </div>
+  </div>
+</template>
